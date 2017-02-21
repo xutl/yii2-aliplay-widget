@@ -1,12 +1,10 @@
 <?php
 
-namespace xutl\alipay;
+namespace xutl\aliplay;
 
-use xutl\aliplay\AliPlayAsset;
 use yii\base\Widget;
 use yii\helpers\Json;
 use yii\helpers\Html;
-use yii\base\InvalidConfigException;
 
 /**
  * Class AliPlayWidget
