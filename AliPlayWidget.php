@@ -16,7 +16,9 @@ class AliPlayWidget extends Widget
      * @var array the HTML attributes for the input tag.
      * @see \yii\helpers\Html::renderTagAttributes() for details on how attributes are being rendered.
      */
-    public $options = [];
+    public $options = [
+        'class' => 'prism-player',
+    ];
 
     /**
      * @var array
@@ -39,12 +41,12 @@ class AliPlayWidget extends Widget
     protected function initOptions()
     {
         if (!isset($this->options['id'])) {
-            $this->options['id'] = 'video-' . $this->getId();
+            $this->options['id'] = 'video' . $this->getId();
         }
-        $this->clientOptions = array_merge(
-            [
-                'showBarTime' => 1000,
-            ], $this->clientOptions);
+        $this->clientOptions = array_merge([
+            'id' => $this->options['id'],
+            'showBarTime' => 1000,
+        ], $this->clientOptions);
     }
 
     /**
@@ -54,7 +56,7 @@ class AliPlayWidget extends Widget
     {
         $view = $this->getView();
         AliPlayAsset::register($view);
-        echo Html::tag('div', $this->options);
+        echo Html::tag('div', '', $this->options);
         if (!empty($this->clientOptions)) {
             $clientOptions = Json::encode($this->clientOptions);
             $view->registerJs("var {$this->options['id']} = new prismplayer({$clientOptions})");
