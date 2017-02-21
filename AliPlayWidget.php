@@ -55,27 +55,11 @@ class AliPlayWidget extends Widget
     public function registerAssets()
     {
         $view = $this->getView();
-        $asset = AliPlayAsset::register($view);
-        $view->registerJs('
-        var player = new prismplayer({
-        id: "J_prismPlayer",
-        isLive: true,
-        cover: "'.$stream->embedUrl.'",
-        source: playUrls.flv,
-        autoplay: false,      // 自动播放
-        width: "750",       // 播放器宽度
-        height: "422",      // 播放器高度
-        showBarTime: 1000
-    });
-        
-        videojs.options.flash.swf = "' . $asset->baseUrl . '/video-js.swf";');
-        echo Html::beginTag('video', $this->options);
-
-        echo Html::endTag('video');
+        AliPlayAsset::register($view);
+        echo Html::tag('div', $this->options);
         if (!empty($this->clientOptions)) {
             $clientOptions = Json::encode($this->clientOptions);
-
-            $view->registerJs('var player = new prismplayer("#' . $this->options['id'] . '").ready(' . $clientOptions . ');');
+            $view->registerJs("var {$this->options['id']} = new prismplayer({$clientOptions})");
         }
     }
 }
